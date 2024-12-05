@@ -13,3 +13,11 @@ export default defineConfig({
     }
   }
 });
+// La clé API sera récupérée depuis les variables d'environnement
+export const getApiKey = () => {
+  const apiKey = localStorage.getItem('OPENAI_API_KEY');
+  if (!apiKey) {
+    throw new Error("Clé API OpenAI non trouvée. Veuillez la configurer.");
+  }
+  return apiKey;
+};
