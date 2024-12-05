@@ -56,8 +56,8 @@ db.serialize(() => {
 app.locals.db = db;
 
 // Routes
-app.use('/api/facts', factsRouter);
-app.use('/api/stats', statsRouter);
+app.use('/facts', factsRouter);
+app.use('/stats', statsRouter);
 
 // Global error handler
 app.use((err, req, res, next) => {
