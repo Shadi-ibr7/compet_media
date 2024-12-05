@@ -8,35 +8,33 @@
 </head>
 <body class="font-sans">
   <!-- Header -->
-  <header class="p-4 flex justify-between items-center">
+  <header class="p-4 flex flex-col md:flex-row justify-between items-center gap-4">
     <img src="/src/assets/logo.svg" alt="Luttinfo" class="h-12">
     <button class="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition">
-      Commencer la formation
+      S’inscrire à la Newsletter
     </button>
   </header>
 
   <!-- Hero Section -->
   <section class="container mx-auto px-4 py-12 text-center">
-    <h1 class="text-4xl font-bold text-blue-500 mb-4">
+    <h1 class="text-3xl md:text-4xl font-bold text-blue-500 mb-4">
       Éduquer pour briser le cycle de la désinformation
     </h1>
-    <p class="text-xl mb-8">Devenez acteur de la lutte contre la désinformation</p>
+    <p class="text-lg md:text-xl mb-8">Devenez acteur de la lutte contre la désinformation</p>
   </section>
 
   <!-- Stats Section -->
-  <section class="container mx-auto px-4 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="text-center">
-        <span class="text-5xl font-bold text-orange-400">48%</span>
-        <p class="mt-4">des Français reçoivent toujours ou souvent de la fausse information</p>
+  <section class="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center justify-between gap-8">
+    <div class="flex flex-col items-center md:flex-row w-full">
+      <!-- Pourcentage -->
+      <div class="flex-none text-[6rem] md:text-[10rem] font-bold text-yellow-400 mr-0 md:mr-8 mb-4 md:mb-0">
+        48%
       </div>
-      <div class="text-center">
-        <span class="text-5xl font-bold text-orange-400">42%</span>
-        <p class="mt-4">des Français estiment que rien n'est à retenir des informations qu'ils reçoivent</p>
-      </div>
-      <div class="text-center">
-        <span class="text-5xl font-bold text-orange-400">62%</span>
-        <p class="mt-4">des Français partagent de la désinformation sans vérifier</p>
+      <!-- Texte explicatif -->
+      <div class="flex-grow text-lg md:text-xl max-w-xl text-center md:text-left">
+        <p>
+          des Français doutent toujours ou souvent, de la fiabilité des informations diffusées par les médias. La moitié des personnes qui s’informent sur les réseaux sociaux redoutent d’être victimes de manipulation, que ce soit de l’information ou de leurs données personnelles. (source : dossier de l’ARCOM)
+        </p>
       </div>
     </div>
   </section>
@@ -44,7 +42,7 @@
   <!-- Puzzle Section -->
   <section class="bg-yellow-100 py-16">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-8 text-center">Puzzle de la Désinformation</h2>
+      <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Puzzle de la Désinformation</h2>
       <div x-data="puzzleGame" x-init="init()" class="max-w-3xl mx-auto">
         <!-- Loading State -->
         <div x-show="loading" class="text-center py-8">
@@ -110,9 +108,66 @@
     </div>
   </section>
 
+  <!-- Newsletter Promotion Section -->
+  <section class="container mx-auto px-4 py-16">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <!-- Texte explicatif -->
+      <div class="flex-1">
+        <p class="text-lg md:text-xl mb-4">
+          Comprendre l'importance de la véracité des informations, c'est déjà un premier pas vers une société mieux informée et plus résiliente. Mais cela ne s'arrête pas là !
+        </p>
+        <p class="text-lg md:text-xl">
+          Rejoignez notre newsletter pour recevoir chaque semaine des outils, conseils et analyses qui vous aideront à démêler le vrai du faux et à devenir un acteur éclairé face à la désinformation.
+        </p>
+      </div>
+      <!-- Bouton d'inscription -->
+      <div>
+        <button class="bg-blue-500 text-white px-6 md:px-8 py-2 md:py-4 rounded-lg hover:bg-blue-600 transition">
+          S’inscrire à la Newsletter
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistiques Comparatives Section -->
+  <section class="container mx-auto px-4 py-16">
+    <div class="flex flex-col gap-16">
+      <!-- Première statistique -->
+      <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+        <!-- Pourcentage -->
+        <div class="text-[6rem] md:text-[10rem] font-bold text-yellow-400 flex-shrink-0">
+          42 %
+        </div>
+        <!-- Texte explicatif -->
+        <div class="text-lg md:text-xl md:w-2/3">
+          <p class="mb-4">
+            Des français estiment que l’on peut s’intéresser à des informations sans chercher à savoir si elles sont vraies ou fausses.
+          </p>
+          <p>
+            Cela ne signifie pas que les Français sont indifférents à la fiabilité des informations. Ils délèguent la vérification aux sources qu’ils connaissent et choisissent, et consentent à cet effort seulement pour certaines catégories d’informations spécifiques.
+          </p>
+        </div>
+      </div>
+
+      <!-- Deuxième statistique -->
+      <div class="flex flex-col md:flex-row-reverse items-center md:items-start gap-8">
+        <!-- Pourcentage -->
+        <div class="text-[6rem] md:text-[10rem] font-bold text-yellow-400 flex-shrink-0">
+          62 %
+        </div>
+        <!-- Texte explicatif -->
+        <div class="text-lg md:text-xl md:w-2/3">
+          <p>
+            Des moins de 25 ans s’informent via les réseaux sociaux. Sans surprise, les médias traditionnels restent privilégiés par les plus de 40 ans, mais peinent à séduire les jeunes générations, davantage tournées vers leur smartphone. Ainsi, si 58 % des 60-65 ans consultent encore les journaux, seuls 35 % des 18-24 ans optent pour cette source d’information.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Newsletter Section -->
   <section class="container mx-auto px-4 py-16">
-    <h2 class="text-3xl font-bold mb-8 text-center">Notre newsletter</h2>
+    <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Notre newsletter</h2>
     <div class="max-w-2xl mx-auto">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div class="bg-yellow-100 p-4 rounded-lg">
