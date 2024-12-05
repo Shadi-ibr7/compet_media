@@ -12,20 +12,20 @@
   "dependencies": {
     "@unocss/reset": "^0.58.5",
     "alpinejs": "^3.13.5",
-    "express": "^4.18.2",
-    "sqlite3": "^5.1.7",
     "cors": "^2.8.5",
-    "openai": "^4.24.1",
     "dotenv": "^16.3.1",
-    "express-async-handler": "^1.2.0"
+    "express": "^4.21.1",
+    "express-async-handler": "^1.2.0",
+    "openai": "^4.24.1",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
+    "@iconify-json/mdi": "^1.1.64",
     "@unocss/preset-attributify": "^0.58.5",
     "@unocss/preset-typography": "^0.58.5",
     "@unocss/preset-web-fonts": "^0.58.5",
-    "@iconify-json/mdi": "^1.1.64",
+    "concurrently": "^8.2.2",
     "unocss": "^0.58.5",
-    "vite": "^5.0.12",
-    "concurrently": "^8.2.2"
+    "vite": "^5.0.12"
   }
 }

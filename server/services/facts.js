@@ -1,4 +1,4 @@
-const { verifyFactWithGPT } = require('./openai.js');
+import { verifyFactWithGPT } from './openai.js';
 
 const topics = [
   {

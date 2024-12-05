@@ -5,7 +5,7 @@ import { getRandomFact } from '../services/facts.js';
 
 export const factsRouter = express.Router();
 
-router.get('/random', asyncHandler(async (req, res) => {
+factsRouter.get('/random', asyncHandler(async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   const fact = await getRandomFact();
   if (!fact || !fact.realNews || !fact.fakeNews) {
@@ -15,7 +15,7 @@ router.get('/random', asyncHandler(async (req, res) => {
   res.json(fact);
 }));
 
-router.post('/verify', asyncHandler(async (req, res) => {
+factsRouter.post('/verify', asyncHandler(async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   const { sentence } = req.body;
   if (!sentence) {
@@ -33,7 +33,7 @@ router.post('/verify', asyncHandler(async (req, res) => {
 }));
 
 // Error handling middleware
-router.use((err, req, res, next) => {
+factsRouter.use((err, req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   console.error('Facts Router Error:', err);
   res.status(500).json({

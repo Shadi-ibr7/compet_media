@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Luttinfo - Éduquer pour briser le cycle de la désinformation</title>
+  <title>Lanterna - Éduquer pour briser le cycle de la désinformation</title>
   <link rel="stylesheet" href="./src/style.css">
 </head>
 <body class="font-sans">
@@ -39,74 +39,76 @@
     </div>
   </section>
 
-  <!-- Puzzle Section -->
-  <section class="bg-yellow-100 py-16">
-    <div class="container mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Puzzle de la Désinformation</h2>
-      <div x-data="puzzleGame" x-init="init()" class="max-w-3xl mx-auto">
-        <!-- Loading State -->
-        <div x-show="loading" class="text-center py-8">
-          <p class="text-gray-600">Chargement...</p>
+<!-- Puzzle Section -->
+<section class="py-16 relative" style="background-image: url('src/assets/overlay jaune fix 3.svg'); background-size: cover; background-repeat: no-repeat; height: 500px;">
+  <div class="container mx-auto px-4 h-full flex flex-col justify-center items-center">
+    <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Puzzle de la Désinformation</h2>
+    <div x-data="puzzleGame" x-init="init()" class="bg-white rounded-lg shadow-lg p-8 w-full max-w-3xl">
+      <!-- Loading State -->
+      <div x-show="loading" class="text-center py-8">
+        <p class="text-gray-600">Chargement...</p>
+      </div>
+
+      <!-- Error State -->
+      <div x-show="error" class="bg-red-100 text-red-700 p-4 rounded-lg mb-6" x-text="error"></div>
+
+      <!-- Game Content -->
+      <div x-show="!loading && !error">
+        <!-- Zone de construction de la phrase -->
+        <div class="mb-8">
+          <h3 class="text-lg font-semibold mb-4">Reconstituez la fausse information :</h3>
+          <div class="min-h-20 bg-gray-100 p-4 rounded-lg flex flex-wrap gap-2">
+            <template x-for="(piece, index) in selectedPieces" :key="index">
+              <button 
+                @click="removePiece(piece, index)"
+                class="bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-200 transition"
+                x-text="piece"
+              ></button>
+            </template>
+          </div>
         </div>
 
-        <!-- Error State -->
-        <div x-show="error" class="bg-red-100 text-red-700 p-4 rounded-lg mb-6" x-text="error"></div>
-
-        <!-- Game Content -->
-        <div x-show="!loading && !error" class="bg-white rounded-xl shadow-lg p-8">
-          <!-- Zone de construction de la phrase -->
-          <div class="mb-8">
-            <h3 class="text-lg font-semibold mb-4">Reconstituez la fausse information :</h3>
-            <div class="min-h-20 bg-gray-100 p-4 rounded-lg flex flex-wrap gap-2">
-              <template x-for="(piece, index) in selectedPieces" :key="index">
-                <button 
-                  @click="removePiece(piece, index)"
-                  class="bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-200 transition"
-                  x-text="piece"
-                ></button>
-              </template>
-            </div>
+        <!-- Pièces disponibles -->
+        <div class="mb-8">
+          <h3 class="text-lg font-semibold mb-4">Pièces disponibles :</h3>
+          <div class="flex flex-wrap gap-2">
+            <template x-for="(piece, index) in pieces" :key="index">
+              <button 
+                @click="selectPiece(piece, index)"
+                class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300 transition"
+                x-text="piece"
+              ></button>
+            </template>
           </div>
-
-          <!-- Pièces disponibles -->
-          <div class="mb-8">
-            <h3 class="text-lg font-semibold mb-4">Pièces disponibles :</h3>
-            <div class="flex flex-wrap gap-2">
-              <template x-for="(piece, index) in pieces" :key="index">
-                <button 
-                  @click="selectPiece(piece, index)"
-                  class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300 transition"
-                  x-text="piece"
-                ></button>
-              </template>
-            </div>
-          </div>
-
-          <!-- Message de résultat -->
-          <div x-show="message" 
-               class="mb-6 p-4 rounded-lg"
-               :class="isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'"
-               x-text="message">
-          </div>
-
-          <!-- Explication -->
-          <div x-show="showExplanation && currentFact && currentFact.explanation" 
-               class="bg-blue-50 p-4 rounded-lg text-blue-700 mb-6">
-            <h3 class="font-semibold mb-2">Explication :</h3>
-            <p x-text="currentFact.explanation"></p>
-          </div>
-
-          <!-- Bouton reset -->
-          <button 
-            @click="reset"
-            class="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition"
-          >
-            Nouvelle phrase
-          </button>
         </div>
+
+        <!-- Message de résultat -->
+        <div x-show="message" 
+             class="mb-6 p-4 rounded-lg"
+             :class="isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'"
+             x-text="message">
+        </div>
+
+        <!-- Explication -->
+        <div x-show="showExplanation && currentFact && currentFact.explanation" 
+             class="bg-blue-50 p-4 rounded-lg text-blue-700 mb-6">
+          <h3 class="font-semibold mb-2">Explication :</h3>
+          <p x-text="currentFact.explanation"></p>
+        </div>
+
+        <!-- Bouton reset -->
+        <button 
+          @click="reset"
+          class="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition"
+        >
+          Nouvelle phrase
+        </button>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+
 
   <!-- Newsletter Promotion Section -->
   <section class="container mx-auto px-4 py-16">
@@ -165,46 +167,93 @@
     </div>
   </section>
 
-  <!-- Newsletter Section -->
-  <section class="container mx-auto px-4 py-16">
-    <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Notre newsletter</h2>
-    <div class="max-w-2xl mx-auto">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div class="bg-yellow-100 p-4 rounded-lg">
-          <h3 class="font-bold mb-2">Savoir s'informer</h3>
-          <p class="text-sm">Apprenez à identifier les sources fiables</p>
-        </div>
-        <div class="bg-yellow-100 p-4 rounded-lg">
-          <h3 class="font-bold mb-2">Savoir analyser</h3>
-          <p class="text-sm">Développez votre esprit critique</p>
-        </div>
-        <div class="bg-yellow-100 p-4 rounded-lg">
-          <h3 class="font-bold mb-2">Savoir protéger</h3>
-          <p class="text-sm">Protégez-vous contre la désinformation</p>
-        </div>
-        <div class="bg-yellow-100 p-4 rounded-lg">
-          <h3 class="font-bold mb-2">Savoir partager</h3>
-          <p class="text-sm">Partagez de manière responsable</p>
-        </div>
+<!-- Décodeur Rapide Section -->
+<section class="container mx-auto px-4 py-16 relative">
+  <h1 class="text-4xl md:text-5xl font-bold mb-4 text-center">Notre newsletter</h1>
+  <p class="text-2xl md:text-3xl text-center mb-8">Apprenez en plus chaque semaine avec Lanterna</p>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+      <!-- Image illustrative -->
+      <div class="flex-1 max-w-md mx-auto relative">
+        <img src="/src/assets/mockup.svg" alt="Illustration décodeur rapide" class="w-full h-auto">
       </div>
-
-      <form x-data="{ email: '', prenom: '' }" class="max-w-md mx-auto">
-        <div class="mb-4">
-          <input type="email" x-model="email" placeholder="Email" 
-                 class="w-full px-4 py-2 rounded border">
-        </div>
-        <div class="mb-4">
-          <input type="text" x-model="prenom" placeholder="Prénom" 
-                 class="w-full px-4 py-2 rounded border">
-        </div>
-        <button type="submit" 
-                class="w-full bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition">
-          S'inscrire à la newsletter
-        </button>
-      </form>
+      <!-- Texte explicatif -->
+      <div class="flex-1 text-left md:max-w-sm mt-4 md:mt-0">
+        <p class="text-lg md:text-xl font-medium">Décodeur rapide : Une rubrique qui décompose une info virale et en expose la vérité en quelques phrases.</p>
+      </div>
     </div>
   </section>
 
+<!-- SVG Section -->
+<section class="container mx-auto px-4 py-16">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div class="p-4 flex flex-col items-center">
+      <img src="/src/assets/Card.svg" alt="Croiser ses sources" class="w-64 h-64 mb-4">
+    </div>
+    <div class="p-4 flex flex-col items-center">
+      <img src="/src/assets/Card (1).svg" alt="Méfiez-vous des titres sensationnalistes" class="w-64 h-64 mb-4">
+    </div>
+    <div class="p-4 flex flex-col items-center">
+      <img src="/src/assets/Card (2).svg" alt="Désactivez les recommandations" class="w-64 h-64 mb-4">
+    </div>
+    <div class="p-4 flex flex-col items-center">
+      <img src="/src/assets/Card (3).svg" alt="Ne partagez pas sans vérifier" class="w-64 h-64 mb-4">
+    </div>
+  </div>
+  <p class="text-center text-lg md:text-xl">Face à la désinformation omniprésente, s'appuyer sur des bonnes pratiques est essentiel pour traiter l'information de manière critique et éclairée. Ces outils simples, mais efficaces, permettent d'analyser, de vérifier et de croiser les sources afin de distinguer le vrai du faux. En adoptant ces réflexes, chacun peut devenir un acteur responsable et mieux armé pour naviguer dans un monde saturé d'informations.</p>
+</section>
+
+
+<!-- Newsletter Section -->
+<section class="container mx-auto px-4 py-16">
+  <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+    <div class="flex-1">
+      <h2 class="text-5xl font-bold mb-6">Découvrez notre newsletter</h2>
+      <p class="text-lg mb-4">Continuez d’apprendre à maîtriser l’information en recevant notre newsletter hebdomadaire</p>
+      <ul class="list-disc pl-5 mb-8">
+        <li class="mb-2">L’actualité en chiffre</li>
+        <li class="mb-2">Découvrir des nouveaux outils chaque semaine</li>
+        <li class="mb-2">Des bonnes pratiques à mettre en place</li>
+        <li>Quiz interactifs sur l’information</li>
+      </ul>
+    </div>
+    <div class="flex-1 max-w-sm w-full mt-8">
+      <form class="bg-gray-100 p-6 rounded-lg shadow-lg">
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
+            <input type="text" id="nom" name="nom" placeholder="Nom" class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+          </div>
+          <div>
+            <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Prénom" class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Votre adresse mail</label>
+          <input type="email" id="email" name="email" placeholder="exemple@mail.com" class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <button type="submit" class="w-full bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">S’inscrire à la Newsletter</button>
+      </form>
+    </div>
+  </div>
+</section>
+
   <script type="module" src="/src/main.js"></script>
 </body>
+
+<!-- Footer Section -->
+<footer class="bg-[#e6eff7] p-10 text-center font-sans">
+  <div class="mb-6">
+    <img src="/src/assets/logo.svg" alt="Lanterna" class="h-15 inline-block">
+  </div>
+  <div class="flex justify-center gap-6 mb-6">
+    <a href="#"><img src="/src/assets/x-icon.svg" alt="X" class="h-10 w-10"></a>
+    <a href="#"><img src="/src/assets/facebook-icon.svg" alt="Facebook" class="h-10 w-10"></a>
+    <a href="#"><img src="/src/assets/instagram-icon.svg" alt="Instagram" class="h-10 w-10"></a>
+  </div>
+  <div>
+    <p class="text-sm text-[#333]">© 2024 Lanterna. Tous Droits Réservés.</p>
+  </div>
+</footer>
+
 </html>

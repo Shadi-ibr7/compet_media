@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler';
 
 export const statsRouter = express.Router();
 
-router.post('/attempt', asyncHandler(async (req, res) => {
+statsRouter.post('/attempt', asyncHandler(async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   const { isCorrect } = req.body;
   if (typeof isCorrect !== 'boolean') {
@@ -29,7 +29,7 @@ router.post('/attempt', asyncHandler(async (req, res) => {
   res.json({ success: true });
 }));
 
-router.get('/', asyncHandler(async (req, res) => {
+statsRouter.get('/', asyncHandler(async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   const db = req.app.locals.db;
   
@@ -49,7 +49,7 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 // Error handling middleware
-router.use((err, req, res, next) => {
+statsRouter.use((err, req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   console.error('Stats Router Error:', err);
   res.status(500).json({
