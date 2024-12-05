@@ -14,18 +14,31 @@
     "alpinejs": "^3.13.5",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+<<<<<<< HEAD
     "express": "^4.21.1",
+=======
+    "express": "^4.18.2",
+>>>>>>> 60cf3010 (puzzle displayed)
     "express-async-handler": "^1.2.0",
     "openai": "^4.24.1",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.1.64",
+<<<<<<< HEAD
     "@unocss/preset-attributify": "^0.58.5",
     "@unocss/preset-typography": "^0.58.5",
     "@unocss/preset-web-fonts": "^0.58.5",
     "concurrently": "^8.2.2",
     "unocss": "^0.58.5",
     "vite": "^5.0.12"
+=======
+    "@unocss/preset-attributify": "^0.58.9",
+    "@unocss/preset-typography": "^0.58.9",
+    "@unocss/preset-web-fonts": "^0.58.9",
+    "concurrently": "^8.2.2",
+    "unocss": "^0.58.9",
+    "vite": "^5.4.11"
+>>>>>>> 60cf3010 (puzzle displayed)
   }
 }

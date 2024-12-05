@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lanterna - Éduquer pour briser le cycle de la désinformation</title>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@unocss/runtime"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@unocss/reset/tailwind.min.css">
   <link rel="stylesheet" href="./src/style.css">
 </head>
 <body class="font-sans">
@@ -24,6 +27,7 @@
   </section>
 
   <!-- Stats Section -->
+
   <section class="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center justify-between gap-8">
     <div class="flex flex-col items-center md:flex-row w-full">
       <!-- Pourcentage -->
@@ -44,7 +48,6 @@
   <div class="container mx-auto px-4 h-full flex flex-col justify-center items-center">
     <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Puzzle de la Désinformation</h2>
     <div x-data="puzzleGame" x-init="init()" class="bg-white rounded-lg shadow-lg p-8 w-full max-w-3xl">
-      <!-- Loading State -->
       <div x-show="loading" class="text-center py-8">
         <p class="text-gray-600">Chargement...</p>
       </div>
@@ -54,7 +57,6 @@
 
       <!-- Game Content -->
       <div x-show="!loading && !error">
-        <!-- Zone de construction de la phrase -->
         <div class="mb-8">
           <h3 class="text-lg font-semibold mb-4">Reconstituez la fausse information :</h3>
           <div class="min-h-20 bg-gray-100 p-4 rounded-lg flex flex-wrap gap-2">
@@ -72,7 +74,7 @@
         <div class="mb-8">
           <h3 class="text-lg font-semibold mb-4">Pièces disponibles :</h3>
           <div class="flex flex-wrap gap-2">
-            <template x-for="(piece, index) in pieces" :key="index">
+            <template x-for="(piece, index) in availablePieces" :key="index">
               <button 
                 @click="selectPiece(piece, index)"
                 class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300 transition"
@@ -84,22 +86,22 @@
 
         <!-- Message de résultat -->
         <div x-show="message" 
-             class="mb-6 p-4 rounded-lg"
-             :class="isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'"
-             x-text="message">
+          class="mb-6 p-4 rounded-lg"
+          :class="isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'"
+          x-text="message">
         </div>
 
         <!-- Explication -->
-        <div x-show="showExplanation && currentFact && currentFact.explanation" 
-             class="bg-blue-50 p-4 rounded-lg text-blue-700 mb-6">
+        <div x-show="showExplanation" 
+          class="bg-blue-50 p-4 rounded-lg text-blue-700 mb-6">
           <h3 class="font-semibold mb-2">Explication :</h3>
-          <p x-text="currentFact.explanation"></p>
+          <p x-text="puzzleData.explanation"></p>
         </div>
 
         <!-- Bouton reset -->
         <button 
           @click="reset"
-          class="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition"
+          class="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition w-full"
         >
           Nouvelle phrase
         </button>
@@ -107,8 +109,6 @@
     </div>
   </div>
 </section>
-
-
 
   <!-- Newsletter Promotion Section -->
   <section class="container mx-auto px-4 py-16">
@@ -150,6 +150,7 @@
           </p>
         </div>
       </div>
+
 
       <!-- Deuxième statistique -->
       <div class="flex flex-col md:flex-row-reverse items-center md:items-start gap-8">
@@ -223,10 +224,6 @@
             <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
             <input type="text" id="nom" name="nom" placeholder="Nom" class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
           </div>
-          <div>
-            <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
-            <input type="text" id="prenom" name="prenom" placeholder="Prénom" class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-          </div>
         </div>
         <div class="mb-4">
           <label for="email" class="block text-sm font-medium text-gray-700">Votre adresse mail</label>
@@ -238,6 +235,11 @@
   </div>
 </section>
 
+    </div>
+  </div>
+</section>
+  <script src="/src/components/puzzle/data.js"></script>
+  <script src="/src/components/puzzle/game.js"></script>
   <script type="module" src="/src/main.js"></script>
 </body>
 
@@ -253,7 +255,9 @@
   </div>
   <div>
     <p class="text-sm text-[#333]">© 2024 Lanterna. Tous Droits Réservés.</p>
+    <a href="#">Mentions Légales</a>
   </div>
 </footer>
 
 </html>
+
