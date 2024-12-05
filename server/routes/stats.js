@@ -1,9 +1,10 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
 
-export const router = express.Router();
+export const statsRouter = express.Router();
 
 router.post('/attempt', asyncHandler(async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   const { isCorrect } = req.body;
   if (typeof isCorrect !== 'boolean') {
     res.status(400).json({ error: 'isCorrect must be a boolean value' });
@@ -29,6 +30,7 @@ router.post('/attempt', asyncHandler(async (req, res) => {
 }));
 
 router.get('/', asyncHandler(async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   const db = req.app.locals.db;
   
   const stats = await new Promise((resolve, reject) => {
@@ -48,6 +50,7 @@ router.get('/', asyncHandler(async (req, res) => {
 
 // Error handling middleware
 router.use((err, req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   console.error('Stats Router Error:', err);
   res.status(500).json({
     error: 'An error occurred while processing your request',

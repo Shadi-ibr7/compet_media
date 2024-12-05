@@ -12,13 +12,8 @@ if (!process.env.OPENAI_API_KEY) {
   throw new Error('OPENAI_API_KEY is not set in environment variables');
 }
 
-if (!process.env.ORGANIZATION_ID) {
-  throw new Error('ORGANIZATION_ID is not set in environment variables');
-}
-
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  organization: process.env.ORGANIZATION_ID
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 export async function verifyFactWithGPT(sentence) {

@@ -3,9 +3,10 @@ import asyncHandler from 'express-async-handler';
 import { verifyFactWithGPT } from '../services/openai.js';
 import { getRandomFact } from '../services/facts.js';
 
-export const router = express.Router();
+export const factsRouter = express.Router();
 
 router.get('/random', asyncHandler(async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   const fact = await getRandomFact();
   if (!fact || !fact.realNews || !fact.fakeNews) {
     res.status(500).json({ error: 'Invalid fact data' });
@@ -15,6 +16,7 @@ router.get('/random', asyncHandler(async (req, res) => {
 }));
 
 router.post('/verify', asyncHandler(async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   const { sentence } = req.body;
   if (!sentence) {
     res.status(400).json({ error: 'Sentence is required' });
@@ -32,6 +34,7 @@ router.post('/verify', asyncHandler(async (req, res) => {
 
 // Error handling middleware
 router.use((err, req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://lanterna.njossedev.fr');
   console.error('Facts Router Error:', err);
   res.status(500).json({
     error: 'An error occurred while processing your request',

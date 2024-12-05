@@ -3,8 +3,8 @@ import cors from 'cors';
 import sqlite3 from 'sqlite3';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { router as factsRouter } from './routes/facts.js';
-import { router as statsRouter } from './routes/stats.js';
+import { factsRouter } from './routes/facts.js';
+import { statsRouter } from './routes/stats.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,7 +13,14 @@ const app = express();
 const port = 3000;
 
 // Middleware
-app.use(cors());
+// Configuration de CORS
+const corsOptions = {
+  origin: 'https://lanterna.njossedev.fr', // Permet les requêtes de cette origine
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Méthodes autorisées
+  allowedHeaders: ['Content-Type', 'Authorization'], // Headers autorisés
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Database initialization
