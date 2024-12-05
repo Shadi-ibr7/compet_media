@@ -1,0 +1,30 @@
+@import '@unocss/reset/tailwind.css';
+
+/* Custom base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans text-gray-800 bg-gray-50;
+}
+
+/* Custom components */
+.stats-number {
+  @apply text-5xl font-bold text-secondary-400 mb-2 inline-block;
+}
+
+.stats-text {
+  @apply text-gray-700 leading-tight;
+}
+
+/* Puzzle specific styles */
+.puzzle-piece {
+  @apply cursor-pointer transition-transform hover:scale-105;
+}
+
+.puzzle-container {
+  @apply min-h-[200px] p-4 rounded-lg border-2 border-dashed border-gray-300;
+}
+
+@unocss all;
